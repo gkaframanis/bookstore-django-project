@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Local
     "accounts",  # app for custom users
+    "pages",  # app for static pages
 ]
 
 MIDDLEWARE = [
@@ -53,10 +54,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
+# noinspection PyInterpreter
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        # Updating the DIRS setting means that Django will also look in this new folder.
+        # It will still look for any templates folders within an app.
+        "DIRS": [str(BASE_DIR.joinpath("templates"))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
