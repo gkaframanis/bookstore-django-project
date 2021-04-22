@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 # Two containers: one running PostgreSQL, within db and the other our Django web server.
 services:
     # For the django local server

@@ -1,7 +1,7 @@
 # A Docker image is a snapshot in time of what a project contains. It is represented by the Dockerfile
 # and is literally a list of instructions that must be built.
 # Pull base image
-FROM python:3.9
+FROM python:3.7
 
 # Set environment variables
 # PYTHONDONTWRITEBYTECODE means python will not try to write .pyc files which also we do not desire.
