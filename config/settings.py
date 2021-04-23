@@ -37,10 +37,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third party
+    "crispy_forms",
     # Local
     "accounts",  # app for custom users
     "pages",  # app for static pages
 ]
+
+# django-crispy-forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -127,11 +132,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+# STATICFILES_DIRS defines the location of static files in local development.
+STATICFILES_DIRS = (str(BASE_DIR.joinpath("static")),)
+# STATIC_ROOT is the location of static files for production so it must be set to a different name, typically staticfiles.
+# docker-compose exec web python manage.py collectstatic
+STATIC_ROOT = str(BASE_DIR.joinpath("staticfiles"))
+# STATICFILES_FINDERS tell Django how to look for static file directories.
+# The FileSystemFinders looks within the STATICFILES_DIRS setting, which we set to static, for any static files.
+# The AppDirectoriesFinder looks for any directories named static located within an app, as opposed to located
+# at a project-level static directory. This setting is read top-to-bottom.
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 
 # For using the CustomUser model
 AUTH_USER_MODEL = "accounts.CustomUser"
-
 # To what page will the user be redirected after logging in.
 LOGIN_REDIRECT_URL = "home"
 # To what page will the user be redirected after logging out.
