@@ -37,15 +37,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Django's sites framework is a a powerful feature that allows one Django project to control multiple sites.
+    "django.contrib.sites",
     # Third party
     "crispy_forms",
+    "allauth",
+    "allauth.account",
     # Local
     "accounts",  # app for custom users
     "pages",  # app for static pages
 ]
-
-# django-crispy-forms
-CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -149,8 +150,30 @@ STATICFILES_FINDERS = [
 
 # For using the CustomUser model
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+# django-crispy-forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# django-allauth config
 # To what page will the user be redirected after logging in.
 LOGIN_REDIRECT_URL = "home"
 # To what page will the user be redirected after logging out.
-LOGOUT_REDIRECT_URL = "home"
+# django-allauth's ACCOUNT_LOGOUT_REDIRECT overrides the built-in LOGOUT_REDIRECT_URL.
+ACCOUNT_LOGOUT_REDIRECT = "home"
+# We only have one site to our project | django.contrib.sites at the installed apps
+SITE_ID = 1
+# Specific authentication options for django-allauth
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend", "allauth.account.auth_backends.AuthenticationBackend",)
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# To remove the Remember Me box option when the user Logs In.
+ACCOUNT_SESSION_REMEMBER = True
+# So the user doesn't have to type the password twice when signing up.
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+# Switching over to using just email for login, not username
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
 
