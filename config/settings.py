@@ -166,7 +166,6 @@ ACCOUNT_LOGOUT_REDIRECT = "home"
 SITE_ID = 1
 # Specific authentication options for django-allauth
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend", "allauth.account.auth_backends.AuthenticationBackend",)
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # To remove the Remember Me box option when the user Logs In.
 ACCOUNT_SESSION_REMEMBER = True
 # So the user doesn't have to type the password twice when signing up.
@@ -176,5 +175,18 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+# Email Settings
+DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# EMAIL_HOST = env("DJANGO_EMAIL_HOST")
+# EMAIL_PORT = env("DJANGO_EMAIL_PORT")
+# EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
+
+
 
 
