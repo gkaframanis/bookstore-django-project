@@ -12,6 +12,14 @@ services:
         # Our web service depends on the database to run. This means that db will be started up before web.
         depends_on:
             - db
+        environment:
+            # Two-step process to switching over to environment variables:
+            # 1) add the environment variable to the docker-compolse.yml file
+            # 2) update config/settings.py to point to the variable.
+            - "DJANGO_SECRET_KEY=bue#q2u1x_no)9(rr^eq*lnxc*9br#o&(-rxmd&2dh#_z3ckex"
+            - "DJANGO_DEBUG=True"
+
+
     # For the PostgreSQL database.
     db:
         image: postgres:11
