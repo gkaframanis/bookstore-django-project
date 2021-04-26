@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # Local
     "accounts",  # app for custom users
     "pages",  # app for static pages
+    "books",
 ]
 
 MIDDLEWARE = [
