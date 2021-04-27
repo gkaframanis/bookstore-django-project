@@ -149,6 +149,9 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+# Media setting for user-uploaded files and images.
+MEDIA_URL = "/media/"
+MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
 
 # For using the CustomUser model
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -187,7 +190,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = env("DJANGO_EMAIL_PORT")
 # EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
-
-
-
-
