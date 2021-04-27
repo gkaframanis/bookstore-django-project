@@ -46,10 +46,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Django's sites framework is a a powerful feature that allows one Django project to control multiple sites.
     "django.contrib.sites",
+
     # Third party
     "crispy_forms",
     "allauth",
     "allauth.account",
+    "debug_toolbar",
+    
     # Local
     "accounts",  # app for custom users
     "pages",  # app for static pages
@@ -64,6 +67,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Adding Debug Toolbar to the Middleware where it is primarily implemented
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -190,3 +195,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = env("DJANGO_EMAIL_PORT")
 # EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
+
+
+# django-debug-toolbar settings to match the machine address of Docker
+# It ensures that our INTERNAL_IPS matches that of our Docker host.
+import socket
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
