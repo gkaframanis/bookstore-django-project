@@ -18,6 +18,13 @@ services:
             # 2) update config/settings.py to point to the variable.
             - "DJANGO_SECRET_KEY=bue#q2u1x_no)9(rr^eq*lnxc*9br#o&(-rxmd&2dh#_z3ckex"
             - "DJANGO_DEBUG=True"
+            - "DJANGO_SECURE_SSL_REDIRECT=False"
+            - "DJANGO_SECURE_HSTS_SECONDS=0"
+            - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
+            - "DJANGO_SECURE_HSTS_PRELOAD=False"
+            - "DJANGO_SESSION_COOKIE_SECURE=False"
+            - "DJANGO_CSRF_COOKIE_SECURE=False"
+
 
 
     # For the PostgreSQL database.

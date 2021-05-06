@@ -30,7 +30,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 # When debug is set to False it is required to add a setting for ALLOWED_HOSTS, which controls the
 # specific hosts or domains that can access the website.
-DEBUG = env.bool("DJANGO_DEBUG")
+# DEBUG = env.bool("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "debug_toolbar",
+    "admin_honeypot",
     
     # Local
     "accounts",  # app for custom users
@@ -202,3 +203,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
+
+# SECURITY (docker-compose exec web python manage.py check --deploy)
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+# HTTP Strict Transport Security (HSTS)
+# SECURE_HSTS_SECONDS setting is set to 0 by default.
+# The greater the better for security purposes. We'll set it to one month, 2.592.000 seconds
+SECURE_HSTS_SECONDS = env.int("DJANGO_SECURE_HSTS_SECONDS", default=2592000)
+# We will set it True to production. It forces subdomains to also exclusively use SSL.
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+# SECURE_HSTS_PRELOAD only has an effect when there is a non-zero value for SECURE_HSTS_SECONDS. We will need to set it to True.
+SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+# Secure Cookies (changing the default values for production)
+SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=True)
+CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)

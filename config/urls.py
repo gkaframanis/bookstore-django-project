@@ -5,8 +5,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    # Django admin
-    path('admin/', admin.site.urls),
+    # Django admin (Hardening the admin security)
+    # using admin-honeypot to catch those trying to access the admin page.
+    path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
+    path('bookstore-site-admin/', admin.site.urls),
 
     # User management
     # path("accounts/", include("django.contrib.auth.urls")),
