@@ -1,0 +1,19 @@
+# These are four top-level sections available for configuration: setup, build, release and run
+# The main function of setup is to specify which add-ons are needed.
+# The build section is how we specify the Dockerfile should be, well, built.
+# The release phase is used to run tasks before each new release is deployed.
+# For example we can make sure collectstatic is run on every deploy automatically.
+# At the run phase we specify which processes actually run th application. Notably, the use of Gunicorn as the web server.
+
+setup:
+  addons:
+    - plan: heroku-postgresql
+build:
+  docker:
+    web: Dockerfile
+release:
+  image: web
+  command:
+    - python manage.py collectstatic --noinput
+run:
+  web: gunicorn config.wsgi

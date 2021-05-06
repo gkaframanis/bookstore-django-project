@@ -4,7 +4,10 @@ services:
     # For the django local server
     web:
         build: .
-        command: python /code/manage.py runserver 0.0.0.0:8000
+        # command: python /code/manage.py runserver 0.0.0.0:8000
+        # To use gunicorn instead of the local server.
+        command: gunicorn config.wsgi -b 0.0.0.0:8000
+
         volumes: 
             - .:/code
         ports:
